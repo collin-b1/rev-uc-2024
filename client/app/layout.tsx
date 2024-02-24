@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import "./globals.css";
 import {
   AppBar,
@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import NavBar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,28 +33,12 @@ export default function RootLayout({
         <title>TransitU</title>
       </head>
       <body className={inter.className}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Bus Route
-              </Typography>
-              <Button href="/login" color="inherit">
-                Login
-              </Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <UserProvider>
+          <AppRouterCacheProvider>
+            <NavBar />
+            {children}
+          </AppRouterCacheProvider>
+        </UserProvider>
       </body>
     </html>
   );
