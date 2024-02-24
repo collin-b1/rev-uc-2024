@@ -27,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>TransitU</title>
+      </head>
       <body className={inter.className}>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
