@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>TransitU</title>
+      </head>
       <body className={inter.className}>
         <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
       </body>
