@@ -1,5 +1,15 @@
-.submit-header li {
-    display: inline-block;
-    width: 400px;
-    padding: 2px;
+.td {
+    padding: 50px 50px 50px ;
+    padding-left: 50px;
+    text-align: left;
+}
+
+.h1 {
+    margin: center;
+    text-align: center;
+}
+
+.button {
+    margin: center;
+    align-self: center;
 }
