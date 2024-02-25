@@ -13,5 +13,10 @@
 }
 
 .tableContainer {
-  margin-right: 50px;
+    z-index: 1;
+    left: 25px;
+    position: absolute;
+    margin-top: 20px;
+   
+
 }

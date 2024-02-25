@@ -10,7 +10,7 @@ import Logo from "../public/real.png";
 export default function NavBar() {
   return (
     <Box>
-      <AppBar position="static">
+          <AppBar position="static" style={{ backgroundColor: 'rgb(139, 0, 0)' }}>>
         <Toolbar>
           <IconButton
             size="large"
