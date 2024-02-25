@@ -1,5 +1,7 @@
 # TransitU
 
+![TransitU Logo](logo.png)
+
 _A time management solution for commuting students_
 
 ## What it does
