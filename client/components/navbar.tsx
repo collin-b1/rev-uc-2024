@@ -21,7 +21,7 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Image src={Logo} alt="Image" height={50} />
+                  <Image src={Logo} alt="Image" height={100}/>
           <Typography
             variant="h6"
             component="div"

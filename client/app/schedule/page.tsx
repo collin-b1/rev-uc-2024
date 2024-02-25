@@ -47,6 +47,12 @@ export default function Schedule() {
     }
   };
 
+    const handleDelete = (index) => {
+        const updatedList = [...classList];
+        updatedList.splice(index, 1);
+        setClassList(updatedList);
+    };
+
   return (
     <main className={styles.main}>
       <h1 className={styles.h1}>Add Your Schedule</h1>
@@ -111,15 +117,13 @@ export default function Schedule() {
         Add Class
       </Button>
 
-      <table>
+          <table className={styles.inputSchedule }>
         <tbody>
           <tr>
-            <td className={styles.td}></td>
-            <td className={styles.td}>Class</td>
+            <td className={`${styles.td}`} style={{ border: 'none' }}></td>            <td className={styles.td}>Class</td>
             <td className={styles.td}>Room Number</td>
             <td className={styles.td}>Time</td>
             <td className={styles.td}>Address</td>
-            <td className={styles.td}></td>
           </tr>
           {classList.map((item, index) => (
               <tr key={index}>
