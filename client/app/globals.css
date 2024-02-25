@@ -1,0 +1,10 @@
+html{
+    display: flex;
+
+}
+.tableContainer {
+    display: flex;
+}
+.Map {
+    display: flex;
+}

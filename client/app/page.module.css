@@ -1,0 +1,8 @@
+.flexContainer {
+    display: flex;
+    align-items: flex-start; /* Align items at the start of the flex container */
+}
+
+.tableContainer {
+    margin-right: 50px; 
+}
