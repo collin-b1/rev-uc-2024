@@ -4,10 +4,12 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import LoginButton from "./login-button";
 import LogoutButton from "./logout-button";
 import NavButtons from "./nav-buttons";
+import Image from "next/image";
+import Logo from "../public/real.png";
 
 export default function NavBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -19,9 +21,12 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Bus Route
-          </Typography>
+          <Image src={Logo} alt="Image" height={50} />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
           <NavButtons />
         </Toolbar>
       </AppBar>
