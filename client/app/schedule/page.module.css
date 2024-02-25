@@ -15,11 +15,14 @@
 }
 
 .td {
-    border: 1px solid black;
-    padding: 8px; 
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
 }
 
-.deleteButton {
+
+  .deleteButton {
     background-color: rgb(170, 0, 0);
     color: white;
     border: none;
