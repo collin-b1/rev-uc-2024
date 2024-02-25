@@ -1,8 +1,12 @@
 "use client";
-import { Input, TextField, Button, Box, Grid, makeStyles } from "@mui/material";
+import { makeStyles } from '@mui/styles';
+import { Input, TextField, Button, Box, Grid} from "@mui/material";
 import * as React from "react";
 import styles from "./page.module.css";
 import { useState } from "react";
+
+
+
 
 const useStyles = makeStyles({
   field: {
@@ -17,12 +21,29 @@ export default function Schedule() {
   const [classTitle, setClassTitle] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [address, setAddress] = useState("");
+  const [roomNum, setRoomNum] = useState("");
+  const [classList, setClassList] = useState([]);
+
+    
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (classTitle && start && end) {
-      console.log(classTitle, start, end);
+    if (classTitle && start && end && address && roomNum) {
+        const newClass = {
+            title: classTitle,
+            time: `${start} - ${end}`,
+            address: address,
+            roomNumber: roomNum
+        };
+        setClassList([...classList, newClass]);
+
+        setClassTitle("");
+        setStart("");
+        setEnd("");
+        setAddress("");
+        setRoomNum("");
     }
   };
 
@@ -40,15 +61,24 @@ export default function Schedule() {
           onChange={e => setClassTitle(e.target.value)}
           id="class"
           label="Class"
-          variant="outlined"
+                  variant="outlined"
+                  value={classTitle }
           required
         />
-
+              <TextField
+                  onChange={e => setRoomNum(e.target.value)}
+                  id="Num"
+                  label="Room Number"
+                  variant="outlined"
+                  value={roomNum}
+                  required
+              />
         <TextField
           onChange={e => setStart(e.target.value)}
           id="start-time"
           label="Start Time"
           variant="outlined"
+          value={start}
           required
         />
 
@@ -57,14 +87,24 @@ export default function Schedule() {
           id="end-time"
           label="End Time"
           variant="outlined"
+          value={end}
           required
-        />
+              />
+              <TextField
+                  onChange={e => setAddress(e.target.value)}
+                  id="address"
+                  label="Address"
+                  variant="outlined"
+                  value={address}
+                  required
+              />
+             
       </Grid>
 
-      <br></br>
+      
 
       <Button
-        onClick={() => console.log("you clicked me")}
+        onClick={handleSubmit}
         variant="contained"
         className={styles.button}
       >
@@ -74,10 +114,25 @@ export default function Schedule() {
       <table>
         <tbody>
           <tr>
+            <td className={styles.td}></td>
             <td className={styles.td}>Class</td>
-            <td className={styles.td}>Start Time</td>
-            <td className={styles.td}>End Time</td>
+            <td className={styles.td}>Room Number</td>
+            <td className={styles.td}>Time</td>
+            <td className={styles.td}>Address</td>
+            <td className={styles.td}></td>
           </tr>
+          {classList.map((item, index) => (
+              <tr key={index}>
+                  <td className={styles.td}>{index + 1}</td>
+                  <td className={styles.td}>{item.title}</td>
+                  <td className={styles.td}>{item.roomNumber}</td>
+                  <td className={styles.td}>{item.time}</td>
+                  <td className={styles.td}>{item.address}</td>
+                  <td className={styles.td}>
+                      <button className={styles.deleteButton} onClick={() => handleDelete(index)}>Delete</button>
+                  </td>
+              </tr>
+          ))}
         </tbody>
       </table>
     </main>
