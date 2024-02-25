@@ -17,6 +17,7 @@ export default function NavButtons() {
       {user && (
         <>
           <LogoutButton />
+          <img src={user.picture} alt="TransitU" height={30} style={{margin: "25px 10px", borderRadius: "50%", border: "1px solid white"}} />
         </>
       )}
     </>
