@@ -1,23 +1,30 @@
 "use client";
-import * as React from 'react';
-import * as Backend from './backend.js';
+import * as React from "react";
+import * as Backend from "./backend.js";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import Divider from '@mui/material/Divider';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import Divider from "@mui/material/Divider";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Button from "@mui/material/Button";
 
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 import Paper from "@mui/material/Paper";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -29,26 +36,40 @@ export default function Home() {
   const [schedule, setSchedule] = useState([]);
   // Get the schedule
   useEffect(() => {
-    if(!user) return;
+    if (!user) return;
     Backend.getSchedule(user.sid).then(response => {
       setSchedule(response);
     });
-  })
+  });
 
   let value = React.useState(0);
   if (!user) {
     return (
       <main className={styles.main} style={{ height: "100%" }}>
-        <img style={{ borderBottom: "1px solid black" }} src="/real.png" alt="TransitU" height={300} />
-        <h3 style={{fontFamily: "sans-serif", marginBottom: "80px"}}>Get the most out of your on-campus buses.</h3>
-        <div style={{margin: "0% 10%"}}>
+        <img
+          style={{ borderBottom: "1px solid black" }}
+          src="/real.png"
+          alt="TransitU"
+          height={300}
+        />
+        <h3 style={{ fontFamily: "sans-serif", marginBottom: "80px" }}>
+          Get the most out of your on-campus buses.
+        </h3>
+        <div style={{ margin: "0% 10%" }}>
           <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
               What is TransitU?
             </AccordionSummary>
             <AccordionDetails>
-              <b>TransitU</b> is the best way for off-campus students to keep track of their classes and to be on-top of their schedule using the school's bus network. We will route you through the campus
-              bus system and calculate the fastest way you can arrive at your classes.
+              <b>TransitU</b> is the best way for off-campus students to keep
+              track of their classes and to be on-top of their schedule using
+              the school&apos;s bus network. We will route you through the
+              campus bus system and calculate the fastest way you can arrive at
+              your classes.
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -60,7 +81,9 @@ export default function Home() {
               How do I get started?
             </AccordionSummary>
             <AccordionDetails>
-              Simply register an account and supply your schedule. The next time you login, we will route you to your classes using the fastest bus routes available.
+              Simply register an account and supply your schedule. The next time
+              you login, we will route you to your classes using the fastest bus
+              routes available.
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -72,46 +95,76 @@ export default function Home() {
               Which schools is this available for?
             </AccordionSummary>
             <AccordionDetails>
-              This is currently being deployed for University of Cincinatti students only.
+              This is currently being deployed for University of Cincinatti
+              students only.
             </AccordionDetails>
           </Accordion>
         </div>
 
-        <div style={{ borderBottom: "1px dashed black", padding: "10px 30%", marginTop: "30px" }}></div>
+        <div
+          style={{
+            borderBottom: "1px dashed black",
+            padding: "10px 30%",
+            marginTop: "30px",
+          }}
+        ></div>
         {/*Login again*/}
-        <Card style={{ textAlign: "center", marginTop: "50px" }} sx={{ minWidth: 275 }}>
+        <Card
+          style={{ textAlign: "center", marginTop: "50px" }}
+          sx={{ minWidth: 275 }}
+        >
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
               Ready to start?
             </Typography>
             <Typography variant="h6" my="5px">
               Register an account.
             </Typography>
             <Typography variant="body2">
-              <Button href={'/api/auth/login'} size="large">Let's Go</Button>
+              <Button href={"/api/auth/login"} size="large">
+                Let&apos;s Go
+              </Button>
             </Typography>
           </CardContent>
         </Card>
         <div style={{ margin: "50px" }}></div>
       </main>
-    )
+    );
   }
 
   // If we have schedule data
-  if(schedule.toString().length > 0) {
+  if (schedule.toString().length > 0) {
     return (
       <main className={styles.main}>
-        <Welcome given_name={user.given_name} props={user.picture}  />
-        <p style={{ marginTop: "0" }}>It's <b>{formatDate(new Date())}.</b> Your next class is coming up:</p>
+        <Welcome given_name={user.given_name} props={user.picture} />
+        <p style={{ marginTop: "0" }}>
+          It&apos;s <b>{formatDate(new Date())}.</b> Your next class is coming
+          up:
+        </p>
         {/*Display classes*/}
-        <TableContainer component={Paper} style={{ marginTop: "50px", width: '50%', padding: "50px"}}>
+        <TableContainer
+          component={Paper}
+          style={{ marginTop: "50px", width: "50%", padding: "50px" }}
+        >
           <Table aria-label="Classes">
             <TableHead>
               <TableRow>
-                <TableCell><b>Class</b></TableCell>
-                <TableCell align="right"><b>Room Number</b></TableCell>
-                <TableCell align="right"><b>Time</b></TableCell>
-                <TableCell align="right"><b>Address</b></TableCell>
+                <TableCell>
+                  <b>Class</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Room Number</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Time</b>
+                </TableCell>
+                <TableCell align="right">
+                  <b>Address</b>
+                </TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
@@ -135,38 +188,43 @@ export default function Home() {
           </Table>
         </TableContainer>
       </main>
-    )
+    );
   }
   // If there's no scheduling data
   return (
     <main className={styles.main}>
-      <Welcome given_name={user.given_name} props={user.picture}  />
+      <Welcome given_name={user.given_name} props={user.picture} />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography color="text.secondary" variant="h6" my="5px">
             Before you go any further...
           </Typography>
           <Typography variant="body2">
-            We don't have your schedule. Input it below to start routing to your classes.
+            We don't have your schedule. Input it below to start routing to your
+            classes.
           </Typography>
         </CardContent>
         <CardActions>
-          <Button href={'schedule'} size="large">To Scheduler</Button>
+          <Button href={"schedule"} size="large">
+            To Scheduler
+          </Button>
         </CardActions>
       </Card>
     </main>
-  )
+  );
 }
 
 function Welcome(props) {
   return (
     // Use the sid in the user object as the primary key in the API
     <main>
-      <div style={{display: "flex"}}>
-        <p style={{fontSize: "50px"}}>Welcome back, <b>{props.given_name}!</b></p>
+      <div style={{ display: "flex" }}>
+        <p style={{ fontSize: "50px" }}>
+          Welcome back, <b>{props.given_name}!</b>
+        </p>
       </div>
     </main>
-  )
+  );
 }
 
 function dataDetected(props) {
@@ -207,18 +265,18 @@ function dataDetected(props) {
           )}
         </div>
       </div>*/
-  )
+  );
 }
 
 function formatDate(date) {
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let ampm = hours >= 12 ? 'PM' : 'AM';
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let ampm = hours >= 12 ? "PM" : "AM";
 
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour ‘0’ should be ‘12’
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour ‘0’ should be ‘12’
+  minutes = minutes < 10 ? "0" + minutes : minutes;
 
-    let strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
+  let strTime = hours + ":" + minutes + " " + ampm;
+  return strTime;
 }
