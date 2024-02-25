@@ -10,20 +10,30 @@ import {
 } from "@vis.gl/react-google-maps";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-const containerStyle = {
-  width: "800px",
-  height: "600px",
-};
-
-const center = {
-  lat: 39.1306472,
-  lng: -84.5084785,
-};
-
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
 export default function Map() {
   const { user } = useUser();
+  const [location, setLocation] = useState<google.maps.LatLngLiteral>({
+    lat: 0,
+    lng: 0,
+  });
+
+  const getPosition = (): google.maps.LatLngLiteral => {
+    navigator.geolocation.getCurrentPosition(position => {
+      return {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+    return { lat: 0, lng: 0 };
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    const pos = getPosition();
+    setLocation(pos);
+  }, [user]);
 
   if (!user) {
     return <p>Must be signed in!</p>;
@@ -42,14 +52,18 @@ export default function Map() {
           disableDefaultUI={true}
           style={{ width: "800px", height: "600px" }}
         >
-          <Directions />
+          <Directions location={location} />
         </GoogleMap>
       </APIProvider>
     </main>
   );
 }
 
-function Directions() {
+interface DirectionsProps {
+  location: google.maps.LatLng | null | undefined;
+}
+
+function Directions({ location }: DirectionsProps) {
   const map = useMap();
   const routesLibrary = useMapsLibrary("routes");
   const [directionsService, setDirectionsService] =
@@ -74,7 +88,7 @@ function Directions() {
 
     directionsService
       .route({
-        origin: "2348 Ohio Ave, Cincinnati OH",
+        origin: location as google.maps.LatLng,
         destination: "2900 Reading Rd, Cincinnati OH",
         travelMode: google.maps.TravelMode.TRANSIT,
         provideRouteAlternatives: false,

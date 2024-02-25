@@ -1,7 +1,7 @@
 "use client";
 import * as Backend from "../backend.js";
 import { makeStyles } from "@mui/styles";
-import { Input, TextField, Button, Box, Grid } from "@mui/material";
+import { TextField, Button, Grid } from "@mui/material";
 import * as React from "react";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
@@ -14,11 +14,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 
 // Get the user
 const useStyles = makeStyles({
@@ -43,6 +38,7 @@ export default function Schedule() {
   useEffect(() => {
     if (!user || loaded) return;
     Backend.getSchedule(user.sid).then(response => {
+      if (response.length === 0) return;
       setLoaded(true);
       setClassList(response);
     });

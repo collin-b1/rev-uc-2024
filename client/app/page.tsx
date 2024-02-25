@@ -11,16 +11,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import Divider from "@mui/material/Divider";
 
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -29,23 +26,22 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-import Logo from "../public/real.png";
-
 export default function Home() {
   const { user } = useUser();
   const [schedule, setSchedule] = useState([]);
+
   // Get the schedule
   useEffect(() => {
     if (!user) return;
     Backend.getSchedule(user.sid).then(response => {
+      if (response.length === 0) return;
       setSchedule(response);
     });
-  });
+  }, [user]);
 
-  let value = React.useState(0);
   if (!user) {
     return (
-      <main className={styles.main} style={{ height: "100%" }}>
+      <main className={styles.main}>
         <img
           style={{ borderBottom: "1px solid black" }}
           src="/real.png"
@@ -95,7 +91,7 @@ export default function Home() {
               Which schools is this available for?
             </AccordionSummary>
             <AccordionDetails>
-              This is currently being deployed for University of Cincinatti
+              This is currently being deployed for University of Cincinnati
               students only.
             </AccordionDetails>
           </Accordion>
@@ -140,7 +136,7 @@ export default function Home() {
   if (schedule.toString().length > 0) {
     return (
       <main className={styles.main}>
-        <Welcome given_name={user.given_name} props={user.picture} />
+        <Welcome username={user.name} />
         <p style={{ marginTop: "0" }}>
           It&apos;s <b>{formatDate(new Date())}.</b> Your next class is coming
           up:
@@ -193,7 +189,7 @@ export default function Home() {
   // If there's no scheduling data
   return (
     <main className={styles.main}>
-      <Welcome given_name={user.given_name} props={user.picture} />
+      <Welcome username={user.name} />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography color="text.secondary" variant="h6" my="5px">
@@ -214,13 +210,13 @@ export default function Home() {
   );
 }
 
-function Welcome(props) {
+function Welcome({ username }) {
   return (
     // Use the sid in the user object as the primary key in the API
     <main>
       <div style={{ display: "flex" }}>
         <p style={{ fontSize: "50px" }}>
-          Welcome back, <b>{props.given_name}!</b>
+          Welcome back, <b>{username}!</b>
         </p>
       </div>
     </main>
