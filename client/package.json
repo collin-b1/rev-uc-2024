@@ -13,14 +13,18 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@googlemaps/js-api-loader": "^1.16.6",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.10",
     "@mui/material-nextjs": "^5.15.11",
+    "@react-google-maps/api": "^2.19.3",
+    "dotenv": "^16.4.5",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.55.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
