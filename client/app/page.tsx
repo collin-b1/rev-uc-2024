@@ -18,18 +18,6 @@ interface RowData {
   roomNumber: number;
 }
 
-export function TodayDate() {
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
-  return <p>Happy {formattedDate}!</p>;
-}
-
 export default function Home() {
   const { user } = useUser();
 
@@ -49,13 +37,12 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <TodayDate />
       <div className={styles.flexContainer}>
         <div className={styles.tableContainer}>
           {rows && (
             <TableContainer
               component={Paper}
-              style={{ width: "450px", height: "auto" }}
+              style={{ width: "450px", height: "auto", marginTop: "8px" }}
             >
               <Table>
                 <TableHead>
