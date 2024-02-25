@@ -18,12 +18,10 @@
     padding: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    text-align: left;
+    text-align: center;
 }
 
-.empyCell{
-    border: none;
-}
+
   .deleteButton {
     background-color: rgb(170, 0, 0);
     color: white;

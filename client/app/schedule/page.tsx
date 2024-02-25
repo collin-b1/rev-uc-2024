@@ -138,7 +138,12 @@ export default function Schedule() {
               </tr>
           ))}
         </tbody>
-      </table>
+          </table>
+          <div className={styles.backButton}>
+              <Button variant="contained" style={{ backgroundColor: 'rgb(170, 0, 0)' }} onClick={() => { window.location.href = '/'; }}>
+                  Go Back to Routes
+              </Button>
+          </div>
     </main>
   );
 }

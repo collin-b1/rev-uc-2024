@@ -9,6 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Button from "@mui/material/Button";
+
 
 interface RowData {
   className: string;
@@ -28,7 +30,7 @@ export default function Home() {
       building: "Caldwell",
       address: "ballsack",
       roomNumber: 332,
-    },
+      },
   ]);
 
   if (!user) {
@@ -69,7 +71,17 @@ export default function Home() {
                 </TableBody>
               </Table>
             </TableContainer>
-          )}
+                  )}
+                  <div style={{ marginTop: '16px', textAlign: 'center'}}>
+                      <Button variant="contained" style={{ backgroundColor: 'rgb(170, 0, 0)' }} onClick={() => { window.location.href = '/schedule'; }}>
+                          Edit Schedule
+                      </Button>
+                  </div>
+                  <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                      <Button variant="contained" style={{ backgroundColor: 'rgb(170, 0, 0)' }} onClick={() => { window.open('/download.jpg', '_blank'); }}>
+                          Fat Fucking Chris
+                      </Button>
+                  </div>
         </div>
       </div>
     </main>
