@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+
 import "./globals.css";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import Link from "next/link";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import NavBar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>TransitU</title>
+      </head>
       <body className={inter.className}>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <UserProvider>
+          <AppRouterCacheProvider>
+            <NavBar />
+            {children}
+          </AppRouterCacheProvider>
+        </UserProvider>
       </body>
     </html>
   );

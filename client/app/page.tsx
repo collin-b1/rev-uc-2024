@@ -28,6 +28,7 @@ function createData(
 }
 
 export default function Thing() {
+<<<<<<< HEAD
 
     const [rows, setRows] = React.useState<RowData[]>([]);
 
@@ -100,3 +101,11 @@ export default function Thing() {
         </main>
     );
 }
+=======
+  return (
+    <main className={styles.main}>
+
+    </main>
+  );
+}
+>>>>>>> 58f378ee6e08896c573be257eb216ea591e6a772
