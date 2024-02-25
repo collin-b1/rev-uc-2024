@@ -27,8 +27,16 @@ function createData(
     return { className, time, building, address, number };
 }
 
+export function TodayDate() {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    return (
+        <p>Happy {formattedDate}!</p>
+    );
+}
+
 export default function Thing() {
-<<<<<<< HEAD
 
     const [rows, setRows] = React.useState<RowData[]>([]);
 
@@ -42,8 +50,8 @@ export default function Thing() {
                 roomNumber: 332
             },
             
-            
-        
+                
+           
             
         ];
 
@@ -60,9 +68,9 @@ export default function Thing() {
     }, []); 
     const scaleFontSize = '69%';
 
-    return (
-        <main className={styles.main}>
-            <h1 style={{ textAlign: 'center' }}>Welcome to Transit U</h1>
+        return (
+            <main className={styles.main}>
+                <TodayDate />
             <div className={styles.flexContainer}>
                 <div className={styles.tableContainer}>
                     <TableContainer component={Paper} style={{ width: '450px', height: 'auto' }}>
@@ -101,11 +109,3 @@ export default function Thing() {
         </main>
     );
 }
-=======
-  return (
-    <main className={styles.main}>
-
-    </main>
-  );
-}
->>>>>>> 58f378ee6e08896c573be257eb216ea591e6a772

@@ -20,8 +20,10 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Bus Route
-          </Typography>
+                      Bus Route
+                  </Typography>
+                  <img src="real.png" alt="Image" style={{ width: "200px", height: "auto", }} />
+
           <NavButtons />
         </Toolbar>
       </AppBar>
