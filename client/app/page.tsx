@@ -26,7 +26,7 @@ import Logo from "../public/real.png";
 
 export default function Home() {
   const { user } = useUser();
-  const [schedule, setSchedule] = useState("Loading...");
+  const [schedule, setSchedule] = useState([]);
   // Get the schedule
   useEffect(() => {
     if(!user) return;
@@ -38,10 +38,10 @@ export default function Home() {
   let value = React.useState(0);
   if (!user) {
     return (
-      <main className={styles.main}>
-        <img src="/real.png" alt="TransitU" height={200} />
+      <main className={styles.main} style={{ height: "100%" }}>
+        <img style={{ borderBottom: "1px solid black" }} src="/real.png" alt="TransitU" height={300} />
         <h3 style={{fontFamily: "sans-serif", marginBottom: "80px"}}>Get the most out of your on-campus buses.</h3>
-        <div  style={{margin: "0% 10%"}}>
+        <div style={{margin: "0% 10%"}}>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" >
               What is TransitU?
@@ -76,6 +76,23 @@ export default function Home() {
             </AccordionDetails>
           </Accordion>
         </div>
+
+        <div style={{ borderBottom: "1px dashed black", padding: "10px 30%", marginTop: "30px" }}></div>
+        {/*Login again*/}
+        <Card style={{ textAlign: "center", marginTop: "50px" }} sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Ready to start?
+            </Typography>
+            <Typography variant="h6" my="5px">
+              Register an account.
+            </Typography>
+            <Typography variant="body2">
+              <Button href={'/api/auth/login'} size="large">Let's Go</Button>
+            </Typography>
+          </CardContent>
+        </Card>
+        <div style={{ margin: "50px" }}></div>
       </main>
     )
   }
@@ -85,7 +102,38 @@ export default function Home() {
     return (
       <main className={styles.main}>
         <Welcome given_name={user.given_name} props={user.picture}  />
-        <p>It's <b>{formatDate(new Date())}.</b></p>
+        <p style={{ marginTop: "0" }}>It's <b>{formatDate(new Date())}.</b> Your next class is coming up:</p>
+        {/*Display classes*/}
+        <TableContainer component={Paper} style={{ marginTop: "50px", width: '50%', padding: "50px"}}>
+          <Table aria-label="Classes">
+            <TableHead>
+              <TableRow>
+                <TableCell><b>Class</b></TableCell>
+                <TableCell align="right"><b>Room Number</b></TableCell>
+                <TableCell align="right"><b>Time</b></TableCell>
+                <TableCell align="right"><b>Address</b></TableCell>
+                <TableCell align="right"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {schedule.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell align="right">{item.title}</TableCell>
+                  <TableCell align="right">{item.time}</TableCell>
+                  <TableCell align="right">{item.address}</TableCell>
+                  <TableCell align="right">
+                    <Button className={styles.deleteButton} href="/map">
+                      Navigate
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </main>
     )
   }

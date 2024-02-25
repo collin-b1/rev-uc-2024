@@ -2,7 +2,11 @@
 const API_URL = "http://localhost:8080";
 
 export async function getSchedule(userID) {
-  return fetch(`${API_URL}/classes/${userID}`).then(async response => await response.json());
+  let result = await fetch(`${API_URL}/classes/${userID}`).then(async response => (await response.json()));
+  if(result.length > 0) {
+    return JSON.parse(result[0].classes);
+  }
+  return [];
 }
 
 export function updateSchedule(userID, body) {
@@ -12,7 +16,7 @@ export function updateSchedule(userID, body) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: body
+    body: JSON.stringify(body)
   }
-  fetch(`${API_URL}/classes/1`, options).then(async response => await response.json());
+  fetch(`${API_URL}/classes/${userID}`, options).then(async response => await response.json());
 }
